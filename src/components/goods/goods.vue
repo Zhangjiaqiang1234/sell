@@ -18,7 +18,7 @@
                     <h1 class="title">{{item.name}}</h1>
                     <!--里层内容列表开始-->
                     <ul>
-                        <li v-for="food in item.foods" :key="food.index" class="food-item">
+                        <li @click="selectFood(food,$event)" v-for="food in item.foods" :key="food.index" class="food-item">
                             <!--左侧图标-->
                             <div class="icon">
                                 <img :src="food.icon">
@@ -53,6 +53,7 @@
         </div>
         <!--购物车组件-->
         <shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+        <food :food="selectedFood" v-on:add-cart="_drop" ref="food"></food>
     </div>
 </template>
 
@@ -61,6 +62,7 @@ import BScroll from 'better-scroll';// 加载 better-scroll
 import shopcart from '../shopcart/shopcart';// 加载 购物车组件
 import coverIcon from '../cover-icon/cover-icon';// 加载 优惠信息小图标组件
 import cartControl from '../cartcontrol/cartcontrol';// 加载food计数器组件
+import food from '../food/food';// 加载food组件
 const ERR_OK = 0;
 export default{
     props: {
@@ -72,7 +74,8 @@ export default{
         return {
             goods: [],
             listHeight: [], // 用于记录右侧可滚动模块的大标题距离顶部的距离
-            scrollY: 0 // 用于记录右侧模块滑动的时候的scroll-y值
+            scrollY: 0, // 用于记录右侧模块滑动的时候的scroll-y值
+            selectedFood: {} // 传递到子组件 food 的对象
         };
     },
     created () {
@@ -115,6 +118,10 @@ export default{
         }
     },
     methods: {
+        selectFood (food, event) { // 点击商品列表，给子组件 food 赋值
+            this.selectedFood = food;
+            this.$refs.food.show();
+        },
         selectMenu (index) { // 点击左侧列表，右侧跳转到对应的位置
             let foodList = this.getEles('.food-list-hook');
             let el = foodList[index];
@@ -152,7 +159,8 @@ export default{
     components: {
         coverIcon,
         shopcart,
-        cartControl
+        cartControl,
+        food
     }
 };
 </script>

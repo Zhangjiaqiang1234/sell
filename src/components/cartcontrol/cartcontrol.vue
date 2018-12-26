@@ -3,7 +3,7 @@
     <div class="cartcontrol">
         <!--减少按钮-->
         <transition>
-            <div class="cart-decrease" v-show="this.food.count>0" @click="decreaseCart">
+            <div class="cart-decrease" v-show="this.food.count>0" @click.stop.prevent="decreaseCart">
                     <div class="inner">
                         <i class="iconfont icon-jian"></i>
                     </div>
@@ -12,7 +12,7 @@
         <!--购买数量-->
         <div class="cart-count" v-show="this.food.count>0">{{this.food.count}}</div>
         <!--增加按钮-->
-        <div class="cart-add" @click="addCart">
+        <div class="cart-add" @click.stop.prevent="addCart"> <!--阻止事件冒泡-->
             <i class="iconfont icon-jia"></i>
         </div>
     </div>
