@@ -8,7 +8,7 @@
             <span class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">7</span></span>
         </div>
         <!--选择只看有内容的评价-->
-        <div class="switch">
+        <div class="switch" :class="{'on':onlyContent}">
             <i class="iconfont icon-dui"></i>
             <span class="text">只看有内容的评价</span>
         </div>
@@ -85,6 +85,9 @@ export default {
             border-bottom:1px solid rgba(7,17,27,0.1)
             color: rgb(147,153,159)
             font-size:0
+            &.on
+                .icon-dui
+                    color: #00c850
             .icon-dui
                 display: inline-block
                 vertical-align: middle
