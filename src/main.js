@@ -8,7 +8,7 @@ import Goods from './components/goods/goods';
 import Ratings from './components/ratings/ratings';
 import Seller from './components/seller/seller';
 import PublicJs from './common/js/public.js';
-
+import * as filters from './common/js/filter.js';
 Vue.config.productionTip = false;
 
 // 要告诉 vue 使用 vueRouter
@@ -17,6 +17,10 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 // 导入全局方法
 Vue.use(PublicJs);
+
+Object.keys(filters).forEach(key => { // 全局过滤器挂载在Vue上
+    Vue.filter(key, filters[key]);
+});
 
 // 定义路由关系
 const routes = [
