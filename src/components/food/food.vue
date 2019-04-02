@@ -44,7 +44,26 @@
                 <!--商品评价-->
                 <div class="rating">
                     <h1 class="title">商品评价</h1>
-                    <ratingselect :select-type.sync="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
+                    <ratingselect :select-type.sync="selectType" :only-content.sync="onlyContent" :desc="desc" :ratings="food.ratings" @refresh="refresh"></ratingselect>
+                    <div class="rating-wrapper">
+                        <!--评价列表-->
+                        <ul v-show="food.ratings && food.ratings.length">
+                            <li v-show="needShow(rating.rateType,rating.text)" v-for="rating in food.ratings" :key="rating.index" class="rating-item">
+                                <!--右上角用户信息-->
+                                <div class="user">
+                                    <span class="name">{{rating.username}}</span>
+                                    <img class="avatar" width="12" height="12" :src="rating.avatar">
+                                </div>
+                                <div class="time">{{rating.rateTime}}</div>
+                                <p class="text">
+                                    <span class="iconfont" :class="{'icon-ai46':rating.rateType===1,'icon-zan':rating.rateType===0}"></span>
+                                    {{rating.text}}
+                                </p>
+                            </li>
+                        </ul>
+                        <!--没有评价内容时显示的内容-->
+                        <div class="no-rating" v-show="!food.ratings || !food.ratings.length">暂无评价</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,9 +76,9 @@ import Vue from 'vue';
 import cartControl from '../cartcontrol/cartcontrol';// 加载food计数器组件
 import split from '../split/split';// 样式，100%宽度的灰色分割条
 import ratingselect from '../ratingselect/ratingselect';// 引入评论列表组件
-// const POSITIVE = 0; // 定义全局变量，区分不同的评论列表类型
-// const NEGATIVE = 1;
-const ALL = 2;
+// const POSITIVE = 0; // 定义全局变量，区分不同的评论列表类型 0 推荐
+// const NEGATIVE = 1; // 吐槽
+const ALL = 2; // 显示所有评论
 export default {
     props: {
         food: {
@@ -69,7 +88,7 @@ export default {
     data () {
         return {
             showFlag: false, // 控制组件是否显示，默认不显示
-            selectType: ALL,
+            selectType: ALL, // 默认显示所有评价
             onlyContent: true, // 是否只显示有内容的评价
             desc: {
                 all: '全部',
@@ -79,6 +98,11 @@ export default {
         };
     },
     methods: {
+        refresh () { // 让 better-scroll 重新计算高度
+            this.$nextTick(() => {
+                this.scroll.refresh();
+            });
+        },
         show () { // 显示详情
             this.showFlag = true;
             // 当显示详情的时候，对商品评价组件的值进行初始化
@@ -108,6 +132,16 @@ export default {
             // 把 cartcontrol 传过来的事件继续传给父组件去处理
             let el = (event.target.nodeName === 'DIV') ? event.target : event.target.parentNode;
             this.$emit('add-cart', el);
+        },
+        needShow (type, text) { // 判断评价 item 是否应当被显示
+            if (this.onlyContent && !text) { // 只显示有内容的评价
+                return false;
+            }
+            if (this.selectType === ALL) { // 显示所有
+                return true;
+            } else { // 显示对应条件评论
+                return this.selectType === type;
+            }
         }
     },
     components: {

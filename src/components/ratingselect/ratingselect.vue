@@ -8,7 +8,7 @@
             <span @click="select(1)" class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">7</span></span>
         </div>
         <!--选择只看有内容的评价-->
-        <div class="switch" :class="{'on':onlyContent}">
+        <div class="switch" :class="{'on':onlyContent}" @click="changeOnlyContent">
             <i class="iconfont icon-dui"></i>
             <span class="text">只看有内容的评价</span>
         </div>
@@ -48,8 +48,13 @@ export default {
         }
     },
     methods: {
-        select (type) {
+        select (type) { // 向父组件传值，修改查看评论的条件
             this.$emit('update:selectType', type);
+            this.$emit('refresh'); // 让父组件的 better-scroll 刷新
+        },
+        changeOnlyContent () { // 向父组件传值，修改是否显示有内容的评论的条件
+            this.$emit('update:onlyContent', !this.onlyContent);
+            this.$emit('refresh'); // 让父组件的 better-scroll 刷新
         }
     }
 };

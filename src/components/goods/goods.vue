@@ -9,7 +9,7 @@
                 </li>
             </ul>
             <!--左侧菜单列表结束-->
-        </div>
+        </div> 
         <div class="foods-wrapper" ref="foodsWrapper">
             <!--右侧外层内容列表开始-->
             <ul>
