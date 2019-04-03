@@ -4,9 +4,9 @@
         <!--减少按钮-->
         <transition>
             <div class="cart-decrease" v-show="this.food.count>0" @click.stop.prevent="decreaseCart">
-                    <div class="inner">
-                        <i class="iconfont icon-jian"></i>
-                    </div>
+                <div class="inner">
+                    <i class="iconfont icon-jian"></i>
+                </div>
             </div>
         </transition>
         <!--购买数量-->
@@ -50,5 +50,41 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-    @import 'cartcontrol.styl';
+.cartcontrol
+    font-size: 0
+    .cart-decrease
+        display :inline-block
+        padding :6px
+        transition: all 0.4s linear
+        .inner
+            display: inline-block
+            font-size:24px
+            line-height 24px
+            color: rgb(0,160,220)
+        &.v-enter-to
+            opacity :1
+            transform :translate3d(0,0,0)
+            .inner
+                transition :all 0.4s linear
+                transform :rotate(0)
+        &.v-enter,&.v-leave-active
+            opacity :0
+            transform :translate3d(24px,0,0)
+            .inner
+                transform :rotate(180deg)
+    .cart-count
+        display :inline-block
+        font-size:10px
+        vertical-align: top
+        width: 12px
+        padding-top: 6px
+        line-height: 30px
+        text-align: center
+        color: rgb(147,153,159)
+    .cart-add
+        display :inline-block
+        padding :6px
+        font-size:24px
+        line-height 24px
+        color: rgb(0,160,220)
 </style>

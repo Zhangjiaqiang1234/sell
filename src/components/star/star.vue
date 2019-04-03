@@ -1,3 +1,4 @@
+<!--显示星级组件-->
 <template>
     <div class="star" :class="starType">
         <span v-for="itemClass in itemClasses" :key="itemClass.index" :class="itemClass" class="star-item"></span>

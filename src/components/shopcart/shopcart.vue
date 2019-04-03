@@ -245,6 +245,180 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-    @import '../../common/stylus/index.styl';
-    @import 'shopcart.styl';
+@import '../../common/stylus/index.styl';
+.shopcart
+    position: fixed
+    left: 0
+    bottom: 0
+    width: 100%
+    height: 48px
+    z-index: 50
+    .content
+        width: 100%
+        height:100%
+        display:flex
+        background: #141d27
+        font-size: 0
+        .content-left
+            flex: 1
+            .logo-wrapper
+                display: inline-block
+                position: relative
+                top: -10px
+                margin: 0 12px
+                padding: 6px
+                width: 56px
+                height: 56px
+                box-sizing: border-box
+                vertical-align: top
+                border-radius: 50%
+                background: #141d27
+                .logo
+                    width: 100%
+                    height: 100%
+                    border-radius: 50%
+                    background: #2b343c
+                    text-align: center
+                    .icon
+                        font-size: 30px
+                        color : #80858a
+                        line-height: 50px
+                    &.highlight
+                        background: rgb(0,160,220)
+                        .icon
+                            color: #fff
+                .num
+                    position: absolute
+                    top:0
+                    right:0
+                    width :24px
+                    height:16px
+                    line-height :16px
+                    text-align: center
+                    border-radius :16px;
+                    font-size:9px
+                    font-weight:700
+                    color: #fff
+                    background: rgb(240,20,20)
+                    box-shadow:0px 4px 8px rgba(0,0,0,0.4)
+            .price
+                vertical-align :top
+                display: inline-block
+                margin-top: 12px
+                line-height :24px
+                border-right: 1px solid rgba(255,255,255,0.1)
+                padding-right: 12px
+                box-sizing: border-box
+                font-size: 16px
+                font-weight :700
+                color: rgba(255,255,255,0.4)
+                &.highlight
+                    color: #fff
+            .desc
+                display: inline-block
+                vertical-align top
+                line-height :24px
+                margin: 12px 0 0 12px
+                color: rgba(255,255,255,0.4)
+                font-size:10px
+        .content-right
+            flex: 0 0 105px
+            .pay
+                width :105px
+                text-align :center
+                height: 48px
+                line-height: 48px
+                font-size: 12px
+                font-weight :700
+                color: rgba(255,255,255,0.4)
+                &.not-enough
+                    background :#2b333b
+                &.enough
+                    background :#00b43c
+                    color: #fff
+    .ball-container
+        .ball
+            position: fixed
+            left: 32px
+            bottom :22px
+            z-index: 200
+            transition :all 0.4s cubic-bezier(0.49,-0.29,0.75,0.41)
+            transform :translate3d(0,0,0)
+            .inner
+                width: 16px
+                height: 16px
+                border-radius :50%
+                background :rgb(0,160,220)
+                transition: all 0.4s linear
+                transform :translate3d(0,0,0)
+    .shopcart-list
+        position: absolute
+        top: 0
+        left: 0
+        z-index :-1
+        width :100%
+        transition :all 0.5s
+        transform :translate3d(0,-100%,0)
+        &.v-enter-to
+            transform :translate3d(0,-100%,0)
+        &.v-enter,&.v-leave-active
+            transform :translate3d(0,0,0)
+        .list-header
+            height: 40px
+            line-height: 40px
+            padding :0 18px
+            background #f3f5f7
+            border-bottom: 1px solid rgba(7,17,27,0.1)
+            .title
+                float: left
+                font-size:14px
+                color: rgb(7,17,27)
+            .empty
+                float: right
+                foont-size:12px
+                color: rgb(0,160,220)
+        .list-content
+            box-sizing: border-box
+            padding :0 18px
+            max-height: 217px
+            overflow: hidden
+            background: #fff
+            .food
+                position: relative
+                padding :12px 0
+                box-sizing:border-box
+                border-1px(rgba(7,17,27,0.1))
+            .name
+                line-height: 24px
+                font-size :14px
+                color: rgb(7,17,27)
+            .price
+                position: absolute
+                right: 90px
+                bottom:12px
+                font-size: 14px
+                line-height: 24px
+                font-weight :700
+                color: rgb(240,20,20)
+            .cartcontrol-wrap
+                position: absolute
+                right: 0
+                bottom:6px
+.list-mask
+    position: fixed
+    left: 0
+    top: 0
+    width :100%
+    height: 100%
+    z-index: 40
+    background :rgba(7,17,27,0.6)
+    transition: all 0.5s
+    opacity :1
+    backdrop-filter:blur(10px)
+    &.fade-enter-to
+        opacity: 1
+        background :rgba(7,17,27,0.6)
+    &.fade-enter,&.fade-leave-active
+        opacity:0
+        background :rgba(7,17,27,0)
 </style>

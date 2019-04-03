@@ -3,9 +3,9 @@
     <div class="ratingselect">
         <!--类型选择-->
         <div class="rating-type">
-            <span @click="select(2)" class="block positive" :class="{'active':selectType===2}">{{desc.all}}<span class="count">11</span></span>
-            <span @click="select(0)" class="block positive" :class="{'active':selectType===0}">{{desc.positive}}<span class="count">11</span></span>
-            <span @click="select(1)" class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">7</span></span>
+            <span @click="select(2)" class="block positive" :class="{'active':selectType===2}">{{desc.all}}<span class="count">0</span></span>
+            <span @click="select(0)" class="block positive" :class="{'active':selectType===0}">{{desc.positive}}<span class="count">0</span></span>
+            <span @click="select(1)" class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">0</span></span>
         </div>
         <!--选择只看有内容的评价-->
         <div class="switch" :class="{'on':onlyContent}" @click="changeOnlyContent">

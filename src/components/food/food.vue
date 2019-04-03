@@ -154,5 +154,152 @@ export default {
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
 @import '../../common/stylus/index.styl';
-@import 'food.styl';
+.food
+    position :fixed
+    left:0
+    top:0
+    bottom:48px
+    z-index :41
+    width :100%
+    background :#fff
+    transition: all .2s linear
+    transform : translateX(0)
+    &.v-enter,&.v-leave-active
+        transform : translateX(100%)
+    .image-header
+        position: relative
+        width :100%
+        height:0
+        padding-top: 100%
+        img
+            position: absolute
+            left:0
+            top:0
+            width: 100%
+            height :100%
+        .back
+            position: absolute
+            left: 0
+            top: 10px
+            .iconfont
+                display: block
+                padding: 10px
+                font-size: 20px
+                color: #fff
+    .content
+        padding :18px
+        position: relative
+        .title
+            line-height :14px
+            margin-bottom :8px
+            font-size: 14px
+            font-weight: 700
+            color: rgb(7,17,27)
+        .detail
+            margin-bottom: 18px
+            line-height :10px
+            height: 10px
+            font-size:0
+            .sell-count,.rating
+                font-size:10px
+                color: rgb(147,153,159)
+            .sell-count
+                margin-right:12px
+        .price
+            font-weight :700
+            line-height :24px
+            font-size:0
+            .now
+                margin-right: 8px
+                font-size: 14px
+                color: rgb(240,20,20)
+            .old
+                text-decoration :line-through
+                font-size: 10px
+                color: rgb(147,153,159)
+        .cartcontrol-wrapper
+            position: absolute
+            right: 12px
+            bottom :12px
+        .buy
+            position: absolute
+            right: 18px
+            bottom :18px
+            z-index: 10
+            height: 24px
+            line-height :24px
+            padding: 0 12px
+            box-sizing: border-box
+            border-radius :12px
+            font-size: 10px
+            color: #ffffff
+            background: rgb(0,160,220)
+            transition:all 0.2s
+            opacity:1
+            &.v-enter,&.v-leave
+                opacity: 0
+    .info
+        padding :18px
+        .title
+            line-height :14px
+            margin-bottom:6px
+            font-size: 14px
+            color: rgb(7,17,27)
+        .text
+            line-height: 24px
+            padding:0 8px
+            font-size: 12px
+            color: rgb(77,85,93)
+            font-size: 12px
+    .rating
+        padding-top:18px
+        .title
+            line-height :14px
+            margin-left:18px
+            font-size: 14px
+            color:rgb(7,17,27)
+        .rating-wrapper
+            padding: 0 18px
+            box-sizing :border-box
+            .rating-item
+                position :relative
+                padding: 16px 0
+                border-1px(rgba(7,17,27,0.1))
+                .user
+                    position :absolute
+                    right: 0
+                    top: 16
+                    line-height: 12px
+                    font-size:0
+                    .name
+                        display: inline-block
+                        margin-right:6px
+                        vertical-align :top
+                        font-size:10px
+                        color:rgb(147,153,159)
+                    .avatar
+                        display: inline-block
+                        vertical-align :top
+                        border-radius :50%
+                .time
+                    margin-bottom:6px
+                    font-size:10px
+                    line-height:12px
+                    color:rgb(147,153,159)
+                .text
+                    line-height: 16px
+                    font-size:12px
+                    color: rgb(7,17,27)
+                    .icon-zan,.icon-ai46
+                        line-height: 16px
+                        margin-right:4px
+                        font-size:12px
+                    .icon-zan
+                        color:rgb(0,160,220)
+                    .icon-ai46
+                        color:rgb(147,153,159)
+        .no-rating
+            padding:16px 0
+            font-size: 12px
+            color:rgb(147,153,159)
 </style>
