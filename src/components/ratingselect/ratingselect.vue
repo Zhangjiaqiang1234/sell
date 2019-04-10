@@ -3,9 +3,9 @@
     <div class="ratingselect">
         <!--类型选择-->
         <div class="rating-type">
-            <span @click="select(2)" class="block positive" :class="{'active':selectType===2}">{{desc.all}}<span class="count">0</span></span>
-            <span @click="select(0)" class="block positive" :class="{'active':selectType===0}">{{desc.positive}}<span class="count">0</span></span>
-            <span @click="select(1)" class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">0</span></span>
+            <span @click="select(2)" class="block positive" :class="{'active':selectType===2}">{{desc.all}}<span class="count">{{ratingTypeLength(2)}}</span></span>
+            <span @click="select(0)" class="block positive" :class="{'active':selectType===0}">{{desc.positive}}<span class="count">{{ratingTypeLength(0)}}</span></span>
+            <span @click="select(1)" class="block negative" :class="{'active':selectType===1}">{{desc.negative}}<span class="count">{{ratingTypeLength(1)}}</span></span>
         </div>
         <!--选择只看有内容的评价-->
         <div class="switch" :class="{'on':onlyContent}" @click="changeOnlyContent">
@@ -55,6 +55,15 @@ export default {
         changeOnlyContent () { // 向父组件传值，修改是否显示有内容的评论的条件
             this.$emit('update:onlyContent', !this.onlyContent);
             this.$emit('refresh'); // 让父组件的 better-scroll 刷新
+        },
+        ratingTypeLength (type) { // 计算不同条件评价列表的数量
+            if (type === 2) {
+                return this.ratings.length;
+            } else {
+                return this.ratings.filter(item => {
+                    return item.rateType === type;
+                }).length;
+            }
         }
     }
 };
