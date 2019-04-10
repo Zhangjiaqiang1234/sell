@@ -3,7 +3,7 @@
         <div class="seller-content">
             <!--概述-->
             <div class="overview">
-                <h1 class="title">{{seller.name}}</h1> 
+                <h1 class="title">{{seller.name}}</h1>
                 <div class="desc">
                     <star :size="36" :score="seller.score"></star>
                     <span class="text">({{seller.ratingCount}})</span>
