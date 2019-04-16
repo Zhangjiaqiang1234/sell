@@ -1,6 +1,6 @@
 <!-- 当前组件是用于优惠信息的小图标组件 -->
 <template>
-    <span class="cover-icon" :class="classMap[index]"></span>
+    <span :style="{width:size+'px', height:size+'px'}" class="cover-icon" :class="classMap[index]"></span>
 </template>
 
 <script type="text/ecmascript-6">
@@ -10,16 +10,17 @@
                 type: Number, // 这是确定某个图标的下标 decrease 或 discount
                 default: 0// 默认值
             },
-            className: {
-                type: String
-            },
             sub: {
                 type: Number,
                 default: 1// 这是确定采用哪个图片组的下标 _1@2x.png 或 _2@2x.png
+            },
+            size: {
+                type: Number,
+                default: 12 // 优惠信息的小图标的默认宽高是12px
             }
         },
         data () {
-            return {
+            return { // 减 折 特 票 保
                 classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee']
             };
         },
@@ -36,8 +37,6 @@
 @import '../../common/stylus/index.styl';
 classMaps = 'decrease' 'discount' 'special' 'invoice' 'guarantee'
 .cover-icon
-    width :12px // 优惠信息的小图标的默认宽高是12px
-    height :12px
     display :inline-block
     background-size: 100%
     background-repeat :no-repeat

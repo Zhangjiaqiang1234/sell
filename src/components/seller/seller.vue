@@ -1,5 +1,5 @@
 <template>
-    <div class="seller">
+    <div class="seller" ref="seller">
         <div class="seller-content">
             <!--概述-->
             <div class="overview">
@@ -41,28 +41,78 @@
                 <!--活动列表-->
                 <ul class="supports" v-if="seller.supports">
                     <li v-for="(i,index) in seller.supports" :key="index" class="supports-item">
-                        <cover-icon :sub="2" :index="i.type"></cover-icon>
+                        <cover-icon :sub="2" :index="i.type" :size="16"></cover-icon>
                         <span class="text">{{i.description}}</span>
                     </li>
                 </ul>
+            </div>
+            <!--灰色分隔条-->
+            <split></split>
+            <!--商家实景-->
+            <div class="pics">
+                <h1 class="title">商家实景</h1>
+                <div class="pic-wrapper" ref="picWrapper">
+                    <ul class="pic-list" ref="picList">
+                        <li v-for="pic in seller.pics" :key="pic.index" class="pic-item">
+                            <img :src="pic" width="120" height="90">
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-// import BScroll from 'better-scroll';// 加载 better-scroll
+import BScroll from 'better-scroll';// 加载 better-scroll
 import star from '../star/star';// 星星组件
 import split from '../split/split';// 样式，100%宽度的灰色分割条
+import coverIcon from '../cover-icon/cover-icon';
 export default{
     props: {
         seller: {
             type: Object
         }
     },
+    created () {
+        this.$nextTick(() => {
+            if (!this.scroll) { // 如果是第一次初始化
+                this.scroll = new BScroll(this.$refs.seller, {
+                    click: true // 因为这个 better-scroll 初始化的时候会禁用掉一些默认事件，这里设置回不禁用 click 事件
+                });
+            } else { // 否则重绘
+                this.scroll.refresh();
+            }
+
+            // 对商家实景的图片左右滚动效果进行 better-scroll
+            // 首先先计算 ul 的宽度
+            console.log(33);
+            console.log(this.seller.pics);
+            if (this.seller.pics) {
+                let picWidth = 120; // 每个图片的宽度为120px
+                let margin = 6; // 右间距为6px
+                let width = (picWidth + margin) * this.seller.pics.length - margin; // 获取 ul 宽度
+                console.log(this.$refs.picList);
+                console.log(width);
+                this.$refs.picList.style.width = width + 'px';
+                // 进行 better-scroll 初始化
+                if (!this.picScroll) { // 如果是第一次初始化
+                    this.picScroll = new BScroll(this.$refs.picWrapper, {
+                        click: true,
+                        scrollX: true, // 表示需要横向滚动
+                        eventPassthrough: true
+                    });
+                } else {
+                    this.picScroll.refresh();
+                }
+            }
+        });
+    },
     components: {
         star,
-        split
+        split,
+        coverIcon,
+        BScroll
     }
 };
 </script>
@@ -126,12 +176,48 @@ export default{
             margin-bottom :8px
             line-height :14px
             color: rgb(1,17,27)
+            font-size:14px
         .content-wrapper
-            padding:0 12px 16px
-            border-1px()
+            padding:0 12px 16px 12px
+            border-1px(rgba(7,17,27,0.1))
             .content
                 line-height :24px
                 font-size:12px
-                color: rgb()
+                color:rgb(240,20,20)
         .supports
+            .supports-item
+                padding:16px 12px
+                border-1px(rgba(7,17,27,0.1))
+                font-size:0
+                &:last-child:after
+                    border:none
+                .cover-icon
+                    vertical-align :middle
+                .text
+                    margin-left:4px
+                    display: inline-block
+                    vertical-align :middle
+                    font-size:12px
+                    line-height :16px
+                    color:#0C1115
+    .pics
+        padding:18px
+        box-sizing:border-box
+        .title
+            margin-bottom:12px
+            line-height: 14px
+            color:rgb(7,17,27)
+        .pic-wrapper
+            width :100%
+            overflow :hidden
+            white-space:nowrap
+            .pic-list
+                font-size:0
+                .pic-item
+                    display: inline-block
+                    margin-right:6px
+                    width :120px
+                    height :90px
+                    &:last-child
+                        margin-right:0
 </style>
